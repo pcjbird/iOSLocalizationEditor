@@ -140,6 +140,28 @@ final class ViewController: NSViewController {
             }
         }
     }
+    
+    private func export() {
+        let openPanel = NSOpenPanel()
+        openPanel.allowsMultipleSelection = false
+        openPanel.canChooseDirectories = true
+        openPanel.canCreateDirectories = true
+        openPanel.canChooseFiles = false
+        openPanel.begin { [unowned self] result -> Void in
+            guard result.rawValue == NSApplication.ModalResponse.OK.rawValue, let url = openPanel.url else {
+                return
+            }
+
+            self.progressIndicator.startAnimation(self)
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyyMMddHHmmss"
+            let dateString = dateFormatter.string(from: Date())
+            let exportUrl = url.appending(component: "excel_\(dateString).xlsx")
+            self.dataSource.export(excel: exportUrl) {
+                self.progressIndicator.stopAnimation(self)
+            }
+        }
+    }
 }
 
 // MARK: - NSTableViewDelegate
@@ -249,6 +271,10 @@ extension ViewController: WindowControllerToolbarDelegate {
      */
     func userDidRequestFolderOpen() {
         openFolder()
+    }
+    
+    func userDidRequestExport() {
+        export()
     }
 }
 

@@ -9,6 +9,9 @@
 import Cocoa
 import Foundation
 import os
+import xlsxwriter
+
+//https://github.com/mehulparmar4ever/XlsxReaderWriterSwift
 
 typealias LocalizationsDataSourceData = ([String], String?, [LocalizationGroup])
 
@@ -40,6 +43,98 @@ final class LocalizationsDataSource: NSObject {
     private var filteredKeys: [String] = []
 
     // MARK: - Actions
+    
+    func setupFormatHeader(using workbook: UnsafeMutablePointer<lxw_workbook>?) -> UnsafeMutablePointer<lxw_format>? {
+        let format = workbook_add_format(workbook)
+        format_set_font_name(format, NSString(string: "Verdana").fileSystemRepresentation)
+        format_set_bold(format)
+        format_set_font_size(format, 18)
+        //format_set_align(format, UInt8(LXW_ALIGN_CENTER.rawValue))
+        format_set_align(format, UInt8(LXW_ALIGN_VERTICAL_CENTER.rawValue))
+        format_set_bg_color(format, UInt32(LXW_COLOR_BLACK.rawValue))
+        format_set_font_color(format, UInt32(LXW_COLOR_WHITE.rawValue))
+        return format
+    }
+    
+    func setupFormatText(using workbook: UnsafeMutablePointer<lxw_workbook>?) -> UnsafeMutablePointer<lxw_format>? {
+        let myformatNormal = workbook_add_format(workbook)
+        format_set_font_name(myformatNormal, NSString(string: "Verdana").fileSystemRepresentation) //Verdana
+        format_set_align(myformatNormal, UInt8(LXW_ALIGN_VERTICAL_DISTRIBUTED.rawValue))
+        format_set_text_wrap(myformatNormal);
+        return myformatNormal
+    }
+    
+    /*func setupFormatRightAllign_Bold(using workbook: UnsafeMutablePointer<lxw_workbook>?) -> UnsafeMutablePointer<lxw_format>? {
+        let format = workbook_add_format(workbook)
+        format_set_bold(format)
+        format_set_align(format, UInt8(LXW_ALIGN_RIGHT.rawValue))
+        return format
+    }
+    
+    func setupFormatCenterAllign(using workbook: UnsafeMutablePointer<lxw_workbook>?) -> UnsafeMutablePointer<lxw_format>? {
+        let format = workbook_add_format(workbook)
+        //        format_set_align(format, UInt8(LXW_ALIGN_CENTER.rawValue))
+        //        format_set_align(format, UInt8(LXW_ALIGN_VERTICAL_CENTER.rawValue))
+        format_set_align(format, UInt8(LXW_ALIGN_CENTER_ACROSS.rawValue))
+        return format
+    }*/
+    
+    func export(excel: URL, onCompletion:@escaping () -> Void) {
+        DispatchQueue.global(qos: .background).async { [unowned self] in
+            
+            let path = NSString(string: excel.path).fileSystemRepresentation
+            //Generate workbook
+            let workbook = workbook_new(path)
+            //Add one Sheet in workbook //You can add multiple sheet
+            for localizationGroup in self.localizationGroups {
+                let worksheet = workbook_add_worksheet(workbook, localizationGroup.name)
+                
+                
+                let formatHeader = self.setupFormatHeader(using: workbook)
+                let formatText = self.setupFormatText(using: workbook)
+                worksheet_set_column(worksheet, 0, 0, 50, nil)
+                worksheet_set_row(worksheet, 0, 40, formatHeader)
+                worksheet_write_string(worksheet, 0, 0, "词条(key)", formatHeader)
+                worksheet_freeze_panes(worksheet, 0, 1)
+                var locKeys = Array<String>()
+
+                for (index, localization) in localizationGroup.localizations.enumerated() {
+                    worksheet_set_column(worksheet, lxw_col_t(index+1), lxw_col_t(0), 50, nil)
+                    //NSLocale* locale = [[NSLocale alloc] initWithLocaleIdentifier:obj];
+                    //NSLocale *zhCNLocale = [NSLocale localeWithLocaleIdentifier:@"zh-CN"];
+                    // NSString *displayName = [zhCNLocale displayNameForKey:NSLocaleLanguageCode value:languageCode];
+                    let locale = Locale(identifier: localization.language)
+                    let zhCNLocale = Locale(identifier: "zh-Hans")
+                    let displayName = zhCNLocale.localizedString(forIdentifier: localization.language) ?? ""
+                    //if let languageCode = locale.language.languageCode?.identifier {
+                        
+                    //}
+                    let title = displayName.count > 0 ? "\(displayName)(\(localization.language))" : localization.language
+                    worksheet_write_string(worksheet, 0, lxw_col_t(index+1), title, formatHeader)
+                    for (row, localizationString) in localization.translations.enumerated() {
+                        if(locKeys.contains(localizationString.key))
+                        {
+                            if let existRow = locKeys.firstIndex(of: localizationString.key) {
+                                worksheet_write_string(worksheet, lxw_row_t(existRow+1), lxw_col_t(index+1), localizationString.value, formatText)
+                            }
+                        }
+                        else
+                        {
+                            worksheet_set_row(worksheet, lxw_row_t(row+1), 35, formatText)
+                            worksheet_write_string(worksheet, lxw_row_t(row+1), 0, localizationString.key, formatText)
+                            worksheet_write_string(worksheet, lxw_row_t(row+1), lxw_col_t(index+1), localizationString.value, formatText)
+                            locKeys.append(localizationString.key)
+                        }
+                    }
+                }
+            }
+            
+            workbook_close(workbook)
+            DispatchQueue.main.async {
+                onCompletion()
+            }
+        }
+    }
 
     /**
      Loads data for directory at given path

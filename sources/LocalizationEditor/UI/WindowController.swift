@@ -16,6 +16,9 @@ protocol WindowControllerToolbarDelegate: AnyObject {
      Invoked when user requests opening a folder
      */
     func userDidRequestFolderOpen()
+    
+    //export
+    func userDidRequestExport()
 
     /**
      Invoked when user requests filter change
@@ -146,6 +149,7 @@ final class WindowController: NSWindowController {
         guard exportButton.isEnabled else {
             return
         }
+        delegate?.userDidRequestExport()
     }
     
     @IBAction private func addAction(_ sender: Any) {
