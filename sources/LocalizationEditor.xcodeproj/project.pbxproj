@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		172274D420D933970036EA4E /* LocalizationGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 172274D320D933970036EA4E /* LocalizationGroup.swift */; };
+		7945D5CD04D057E186B9EE4E /* Pods_LocalizationEditor.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 59DB9DCD2662E70DCE84A8AB /* Pods_LocalizationEditor.framework */; };
 		A117B6AD21D0FFC6008F10E4 /* LocalizableStrings-en-with-complete-messages.strings in Resources */ = {isa = PBXBuildFile; fileRef = A117B6AC21D0FFC0008F10E4 /* LocalizableStrings-en-with-complete-messages.strings */; };
 		A117B6AF21D10060008F10E4 /* LocalizableStrings-en-with-incomplete-messages.strings in Resources */ = {isa = PBXBuildFile; fileRef = A117B6AE21D10060008F10E4 /* LocalizableStrings-en-with-incomplete-messages.strings */; };
 		A15A5A4221D908C400D3C791 /* Parser.swift in Sources */ = {isa = PBXBuildFile; fileRef = A15A5A4121D908C400D3C791 /* Parser.swift */; };
@@ -81,6 +82,9 @@
 
 /* Begin PBXFileReference section */
 		172274D320D933970036EA4E /* LocalizationGroup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalizationGroup.swift; sourceTree = "<group>"; };
+		3700CFCE457C426C433520F9 /* Pods-LocalizationEditor.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LocalizationEditor.release.xcconfig"; path = "Target Support Files/Pods-LocalizationEditor/Pods-LocalizationEditor.release.xcconfig"; sourceTree = "<group>"; };
+		4AF93E99FFF57127F3FE270E /* Pods-LocalizationEditor.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LocalizationEditor.debug.xcconfig"; path = "Target Support Files/Pods-LocalizationEditor/Pods-LocalizationEditor.debug.xcconfig"; sourceTree = "<group>"; };
+		59DB9DCD2662E70DCE84A8AB /* Pods_LocalizationEditor.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LocalizationEditor.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A117B6AC21D0FFC0008F10E4 /* LocalizableStrings-en-with-complete-messages.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = "LocalizableStrings-en-with-complete-messages.strings"; sourceTree = "<group>"; };
 		A117B6AE21D10060008F10E4 /* LocalizableStrings-en-with-incomplete-messages.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = "LocalizableStrings-en-with-incomplete-messages.strings"; sourceTree = "<group>"; };
 		A15A5A4121D908C400D3C791 /* Parser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Parser.swift; sourceTree = "<group>"; };
@@ -131,6 +135,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7945D5CD04D057E186B9EE4E /* Pods_LocalizationEditor.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -144,6 +149,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		CFD302CB69D6249D9323B14B /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				4AF93E99FFF57127F3FE270E /* Pods-LocalizationEditor.debug.xcconfig */,
+				3700CFCE457C426C433520F9 /* Pods-LocalizationEditor.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		F3D9C93920BEC7460081830A = {
 			isa = PBXGroup;
 			children = (
@@ -151,6 +165,7 @@
 				F3DF02CC21C65F6800CEC6B6 /* LocalizationEditorTests */,
 				F3D9C94320BEC7460081830A /* Products */,
 				F3D9C96F20BEF0730081830A /* Frameworks */,
+				CFD302CB69D6249D9323B14B /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -230,6 +245,7 @@
 			isa = PBXGroup;
 			children = (
 				F3D9C97020BEF0740081830A /* Files.framework */,
+				59DB9DCD2662E70DCE84A8AB /* Pods_LocalizationEditor.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -289,6 +305,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = F3D9C95220BEC7460081830A /* Build configuration list for PBXNativeTarget "LocalizationEditor" */;
 			buildPhases = (
+				66C6890AE59971DC438E1FA4 /* [CP] Check Pods Manifest.lock */,
 				F3EF22082209F25F000E8C80 /* Build number */,
 				F3BC11A421C40FAC001F396F /* SwiftLint */,
 				F3D9C93E20BEC7460081830A /* Sources */,
@@ -296,6 +313,7 @@
 				F3D9C94020BEC7460081830A /* Resources */,
 				F3D9C97520BEF0A50081830A /* Embed Frameworks */,
 				F3EA77C421AEB45000337B3B /* CopyFiles */,
+				45A5583B1439874A2FCDE64F /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -398,6 +416,52 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		45A5583B1439874A2FCDE64F /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-LocalizationEditor/Pods-LocalizationEditor-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/CoreXLSX/CoreXLSX.framework",
+				"${BUILT_PRODUCTS_DIR}/XMLCoder/XMLCoder.framework",
+				"${BUILT_PRODUCTS_DIR}/ZIPFoundation/ZIPFoundation.framework",
+				"${BUILT_PRODUCTS_DIR}/libxlsxwriter/xlsxwriter.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CoreXLSX.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/XMLCoder.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ZIPFoundation.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/xlsxwriter.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-LocalizationEditor/Pods-LocalizationEditor-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		66C6890AE59971DC438E1FA4 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-LocalizationEditor-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
 		F3BC11A421C40FAC001F396F /* SwiftLint */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -547,7 +611,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
@@ -600,7 +664,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = macosx;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
@@ -609,6 +673,7 @@
 		};
 		F3D9C95320BEC7460081830A /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4AF93E99FFF57127F3FE270E /* Pods-LocalizationEditor.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = LocalizationEditor/LocalizationEditor.entitlements;
@@ -626,6 +691,7 @@
 		};
 		F3D9C95420BEC7460081830A /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3700CFCE457C426C433520F9 /* Pods-LocalizationEditor.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = LocalizationEditor/LocalizationEditor.entitlements;

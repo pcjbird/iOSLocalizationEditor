@@ -49,6 +49,7 @@ final class WindowController: NSWindowController {
     // MARK: - Outlets
 
     @IBOutlet private weak var openButton: NSToolbarItem!
+    @IBOutlet private weak var exportButton: NSToolbarItem!
     @IBOutlet private weak var searchField: NSSearchField!
     @IBOutlet private weak var selectButton: NSPopUpButton!
     @IBOutlet private weak var filterButton: NSPopUpButton!
@@ -85,6 +86,8 @@ final class WindowController: NSWindowController {
     private func setupUI() {
         openButton.image = NSImage(named: NSImage.folderName)
         openButton.toolTip = "Open folder"
+        exportButton.image = NSImage(named: NSImage.shareTemplateName)
+        exportButton.toolTip = "Export to excel"
         filterButton.toolTip = "Filter"
         selectButton.toolTip = "String table"
         newButton.toolTip = "New translation"
@@ -113,6 +116,7 @@ final class WindowController: NSWindowController {
     }
 
     private func enableControls() {
+        exportButton.isEnabled = true
         searchField.isEnabled = true
         filterButton.isEnabled = true
         selectButton.isEnabled = true
@@ -138,6 +142,12 @@ final class WindowController: NSWindowController {
         delegate?.userDidRequestFolderOpen()
     }
 
+    @IBAction func exportAction(_ sender: Any) {
+        guard exportButton.isEnabled else {
+            return
+        }
+    }
+    
     @IBAction private func addAction(_ sender: Any) {
         guard newButton.isEnabled else {
             return

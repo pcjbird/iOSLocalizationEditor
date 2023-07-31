@@ -1,0 +1,9 @@
+source 'https://github.com/CocoaPods/Specs.git'
+platform :osx, '13.0'
+use_frameworks!
+inhibit_all_warnings!
+
+target ‘LocalizationEditor’ do
+    pod 'CoreXLSX'
+    pod 'libxlsxwriter'
+end
