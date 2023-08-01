@@ -64,21 +64,6 @@ final class LocalizationsDataSource: NSObject {
         return myformatNormal
     }
     
-    /*func setupFormatRightAllign_Bold(using workbook: UnsafeMutablePointer<lxw_workbook>?) -> UnsafeMutablePointer<lxw_format>? {
-        let format = workbook_add_format(workbook)
-        format_set_bold(format)
-        format_set_align(format, UInt8(LXW_ALIGN_RIGHT.rawValue))
-        return format
-    }
-    
-    func setupFormatCenterAllign(using workbook: UnsafeMutablePointer<lxw_workbook>?) -> UnsafeMutablePointer<lxw_format>? {
-        let format = workbook_add_format(workbook)
-        //        format_set_align(format, UInt8(LXW_ALIGN_CENTER.rawValue))
-        //        format_set_align(format, UInt8(LXW_ALIGN_VERTICAL_CENTER.rawValue))
-        format_set_align(format, UInt8(LXW_ALIGN_CENTER_ACROSS.rawValue))
-        return format
-    }*/
-    
     func export(excel: URL, onCompletion:@escaping () -> Void) {
         DispatchQueue.global(qos: .background).async { [unowned self] in
             
